@@ -799,7 +799,7 @@ export default function Home() {
                   )}
 
                   {generationState === 'completed' && (
-                    <div className="placeholder-content no-border" style={{ height: 'auto', maxHeight: '500px', overflowY: 'auto', display: 'block' }}>
+                    <div className="placeholder-content no-border" style={{ display: 'block' }}>
                         <div style={{ textAlign: 'left', width: '100%', fontSize: '0.9rem', lineHeight: '1.6' }}>
                             <div id="ai-output-container">
                                 <ReactMarkdown>{aiResponse}</ReactMarkdown>
