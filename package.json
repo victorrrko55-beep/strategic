@@ -9,9 +9,17 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^1.50.1",
+    "html2pdf.js": "^0.14.0",
     "next": "16.2.4",
+    "officeparser": "^6.1.0",
+    "openai": "^6.34.0",
+    "pdf-parse": "^2.4.5",
+    "pdfreader": "^3.0.8",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-markdown": "^10.1.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "eslint": "^9",
