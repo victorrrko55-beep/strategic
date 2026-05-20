@@ -188,7 +188,7 @@ ${pdfText ? pdfText : "No reference documents provided."}
 
 ${censusContext}
 
-Your goal is to synthesize ${count || 3} hyper-realistic synthetic consumer personas representing distinct segments that fit this data. 
+Your goal is to synthesize EXACTLY ${count || 3} hyper-realistic synthetic consumer personas representing distinct segments that fit this data. You MUST return an array containing exactly ${count || 3} persona objects.
 
 You must output your response ENTIRELY as a valid JSON object. DO NOT include any markdown formatting wrappers or conversational text!
 Use this EXACT JSON schema:
@@ -270,6 +270,12 @@ Use this EXACT JSON schema:
 
     let parsedData = JSON.parse(generatedText);
     let personas = Array.isArray(parsedData.personas) ? parsedData.personas : Object.values(parsedData);
+
+    // Strictly enforce requested count
+    const requestedCount = parseInt(count, 10);
+    if (!isNaN(requestedCount) && personas.length > requestedCount) {
+        personas = personas.slice(0, requestedCount);
+    }
 
     // Map the census verified tag to the resulting UI if RAG engine was hit
     if (censusContext !== "") {
