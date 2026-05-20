@@ -44,9 +44,16 @@ Use this EXACT JSON schema:
   "sectionA": [
     {
       "scenarioTitle": "A catchy, descriptive title for the scenario",
-      "scenarioDescription": "A detailed 2-3 sentence narrative describing the situation, context, and the user's ultimate goal.",
-      "trigger": "What precisely prompts them to start this scenario?",
-      "primaryActor": "The persona name and their primary motivation in this context"
+      "targetCustomer": "Who specifically this affects within the broader persona",
+      "environmentalContext": "The surrounding context (e.g., pricing tier, location, external pressures)",
+      "devicesInvolved": "Specific hardware/software involved in this situation",
+      "situationDescription": "A detailed 2-3 sentence narrative describing the exact situation and the user's primary goal.",
+      "expectedActions": [
+        "First specific action the user must take",
+        "Second specific action the user must take",
+        "Third specific action the user must take"
+      ],
+      "projectedOutcome": "The final impact, savings effect, or resolution of those actions"
     }
   ],
   "sectionB": {

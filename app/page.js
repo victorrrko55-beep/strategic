@@ -520,12 +520,20 @@ export default function Home() {
             const scenarioRows = [];
             
             // Section A
-            scenarioRows.push(["Section A: Scenario Cards", "", "", ""]);
-            scenarioRows.push(["Scenario Title", "Description", "Trigger", "Primary Actor"]);
+            scenarioRows.push(["Section A: Scenario Cards", "", "", "", "", "", ""]);
+            scenarioRows.push(["Scenario Title", "Target Customer", "Environmental Context", "Devices Involved", "Situation Description", "Expected Actions", "Projected Outcome"]);
             scenarioData.sectionA.forEach(s => {
-                scenarioRows.push([s.scenarioTitle, s.scenarioDescription, s.trigger, s.primaryActor]);
+                scenarioRows.push([
+                    s.scenarioTitle || "", 
+                    s.targetCustomer || "", 
+                    s.environmentalContext || "", 
+                    s.devicesInvolved || "", 
+                    s.situationDescription || "", 
+                    (s.expectedActions || []).join(" | "), 
+                    s.projectedOutcome || ""
+                ]);
             });
-            scenarioRows.push(["", "", "", ""]);
+            scenarioRows.push(["", "", "", "", "", "", ""]);
 
             // Section B
             scenarioRows.push(["Section B: Cross-Scenario Comparison", "", "", ""]);
@@ -1297,14 +1305,29 @@ export default function Home() {
                                               </div>
                                           )}
                                           <h4 style={{ color: '#6ee3c5', marginBottom: '10px', fontSize: '1.2rem' }}>{scenario.scenarioTitle}</h4>
-                                          <p style={{ color: 'var(--text-main)', fontSize: '0.9rem', lineHeight: '1.5', marginBottom: '15px' }}>{scenario.scenarioDescription}</p>
-                                          <div style={{ background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '6px', marginBottom: '10px' }}>
-                                              <strong style={{ display: 'block', color: '#ffd93d', fontSize: '0.8rem', textTransform: 'uppercase' }}>Trigger</strong>
-                                              <span style={{ fontSize: '0.85rem' }}>{scenario.trigger}</span>
+                                          <div style={{ marginBottom: '15px' }}>
+                                              <p style={{ margin: '4px 0', fontSize: '0.85rem' }}><strong style={{color: '#a0aec0'}}>Target:</strong> {scenario.targetCustomer}</p>
+                                              <p style={{ margin: '4px 0', fontSize: '0.85rem' }}><strong style={{color: '#a0aec0'}}>Context:</strong> {scenario.environmentalContext}</p>
+                                              <p style={{ margin: '4px 0', fontSize: '0.85rem' }}><strong style={{color: '#a0aec0'}}>Devices:</strong> {scenario.devicesInvolved}</p>
                                           </div>
-                                          <div style={{ background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '6px' }}>
-                                              <strong style={{ display: 'block', color: 'var(--accent-blue)', fontSize: '0.8rem', textTransform: 'uppercase' }}>Primary Actor</strong>
-                                              <span style={{ fontSize: '0.85rem' }}>{scenario.primaryActor}</span>
+                                          
+                                          <div style={{ background: 'rgba(255,255,255,0.05)', padding: '12px', borderRadius: '8px', marginBottom: '15px' }}>
+                                              <strong style={{ display: 'block', color: '#ffd93d', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '8px' }}>Situation</strong>
+                                              <p style={{ color: 'var(--text-main)', fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>{scenario.situationDescription}</p>
+                                          </div>
+
+                                          <div style={{ marginBottom: '15px' }}>
+                                              <strong style={{ display: 'block', color: 'var(--accent-blue)', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '8px' }}>Expected Actions</strong>
+                                              <ul style={{ listStyleType: 'disc', paddingLeft: '20px', margin: 0, fontSize: '0.85rem', color: '#e2e8f0', lineHeight: '1.6' }}>
+                                                  {scenario.expectedActions?.map((action, i) => (
+                                                      <li key={i}>{action}</li>
+                                                  ))}
+                                              </ul>
+                                          </div>
+
+                                          <div style={{ background: 'rgba(110,227,197,0.1)', borderLeft: '3px solid #6ee3c5', padding: '10px 15px', borderRadius: '4px' }}>
+                                              <strong style={{ display: 'block', color: '#6ee3c5', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '4px' }}>Projected Outcome</strong>
+                                              <span style={{ fontSize: '0.85rem', fontWeight: '500' }}>{scenario.projectedOutcome}</span>
                                           </div>
                                       </div>
                                   )})}
