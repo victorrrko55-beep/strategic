@@ -1239,9 +1239,9 @@ export default function Home() {
                     disabled={scenarioGenState === 'generating' || !selectedPersona}
                     style={{ opacity: (scenarioGenState === 'generating' || !selectedPersona) ? 0.7 : 1 }}
                   >
-                    {scenarioGenState === 'idle' && 'Generate User Journeys'}
+                    {scenarioGenState === 'idle' && 'Generate Scenarios'}
                     {scenarioGenState === 'generating' && 'Simulating Scenarios...'}
-                    {scenarioGenState === 'completed' && 'Regenerate Journeys'}
+                    {scenarioGenState === 'completed' && 'Regenerate Scenarios'}
                   </button>
                 </div>
 
