@@ -66,18 +66,18 @@ ${pdfText ? pdfText.substring(0, 15000) : "No PDF uploaded."}
 
 Structure your response with:
 ### SECTION A: Advanced SWOT Analysis
-Provide deep, dense business logic. Format exactly as four SEPARATE Markdown blockquotes. You MUST separate each blockquote by an empty blank line so they do not merge together:
+Provide deep, dense business logic. For every single point you make, you MUST append a plausible or inferred reference source in brackets (e.g., "[Source: Industry Analysis 2024]", "[Source: Competitor Annual Report]", or "[Source: Uploaded PDF Reference]"). Format exactly as four SEPARATE Markdown blockquotes. You MUST separate each blockquote by an empty blank line so they do not merge together:
 > **Strengths**
-> - point
+> - point [Source: ...]
 
 > **Weaknesses**
-> - point
+> - point [Source: ...]
 
 > **Opportunities**
-> - point
+> - point [Source: ...]
 
 > **Threats**
-> - point
+> - point [Source: ...]
 
 ### SECTION B: Actionable Strategic Levers
 Given the target experience of ${experience} and the objective of ${objective}, what are the 3 most effective levers? Format each explicitly with an h4, using exactly this format:
