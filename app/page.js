@@ -382,8 +382,9 @@ export default function Home() {
         // Toggle PDF styling class to rely on standard CSS rather than html2canvas cloning bugs
         document.body.classList.add('exporting-pdf');
         
-        // Give the DOM a tiny fraction of a second to recalculate styles before capturing
-        await new Promise(resolve => setTimeout(resolve, 50));
+        // Give the DOM a significant amount of time (800ms) to recalculate layout and repaint
+        // If this is too short, html2canvas will capture the old dark mode (white text) on a white background!
+        await new Promise(resolve => setTimeout(resolve, 800));
 
         const html2pdf = (await import('html2pdf.js')).default;
         const opt = {
@@ -393,7 +394,6 @@ export default function Home() {
           html2canvas:  { 
             scale: 2, 
             useCORS: true, 
-            backgroundColor: '#ffffff', 
             windowWidth: 1200
           },
           pagebreak:    { mode: ['css', 'avoid-all'] },
