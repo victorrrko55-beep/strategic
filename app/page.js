@@ -831,7 +831,8 @@ export default function Home() {
                                                     textAlign: 'left',
                                                     cursor: 'pointer',
                                                     transition: 'all 0.2s ease',
-                                                    lineHeight: '1.5'
+                                                    lineHeight: '1.5',
+                                                    fontSize: '1.05rem'
                                                 }}
                                             >
                                                 <strong>Lever {idx + 1}:</strong> {lever}
