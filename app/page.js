@@ -387,21 +387,30 @@ export default function Home() {
           html2canvas:  { 
             scale: 2, 
             useCORS: true, 
-            backgroundColor: '#111629', 
+            backgroundColor: '#ffffff', 
             windowWidth: 1200,
             onclone: (clonedDoc) => {
-                // Strip glassmorphism filters because they notoriously cause html2canvas blank-outs
-                const glassItems = clonedDoc.querySelectorAll('.glass-panel, .persona-card, .glass-input, .metric-box, .tag-cloud span');
-                glassItems.forEach(el => {
-                    el.style.backdropFilter = 'none';
-                    el.style.background = '#1a2035'; // replace with solid Navy so nothing is transparent
-                });
-
-                // Strip complex absolute tooltips that notoriously crash the PDF renderer
-                const tooltips = clonedDoc.querySelectorAll('.tooltip-text, .info-icon, .tooltip-container svg');
-                tooltips.forEach(el => {
-                    el.style.display = 'none';
-                });
+                // Force a clean print-friendly theme for the PDF
+                const style = clonedDoc.createElement('style');
+                style.innerHTML = `
+                    * {
+                        color: #000000 !important;
+                        text-shadow: none !important;
+                        box-shadow: none !important;
+                    }
+                    .glass-panel, .persona-card, .metric-box, blockquote, .tag-cloud span, .glass-input {
+                        background: #ffffff !important;
+                        border: 1px solid #cccccc !important;
+                        backdrop-filter: none !important;
+                    }
+                    body, #ai-output-container {
+                        background: #ffffff !important;
+                    }
+                    .tooltip-text, .info-icon, .tooltip-container svg {
+                        display: none !important;
+                    }
+                `;
+                clonedDoc.head.appendChild(style);
             }
           },
           jsPDF:        { unit: 'in', format: 'tabloid', orientation: 'landscape' }
