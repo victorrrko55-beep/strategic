@@ -399,23 +399,48 @@ export default function Home() {
                     body, #ai-output-container {
                         background: #ffffff !important;
                         color: #0b1c3c !important; /* Dark Blue Text */
+                        font-family: sans-serif !important;
                     }
-                    /* Force main text elements to dark blue */
-                    p, span:not(.tag-cloud span), li, blockquote {
+                    /* Add ample space and line-height for readability */
+                    p, span:not(.tag-cloud span), li {
                         color: #0b1c3c !important;
+                        line-height: 1.8 !important;
+                        margin-bottom: 16px !important;
+                    }
+                    h3, h4 {
+                        margin-top: 30px !important;
+                        margin-bottom: 16px !important;
+                    }
+                    /* Force SWOT blockquotes into a clean 2-column grid */
+                    blockquote {
+                        width: 46% !important;
+                        display: inline-block !important;
+                        vertical-align: top !important;
+                        margin: 1.5% !important;
+                        padding: 20px !important;
+                        box-sizing: border-box !important;
+                        background: #ffffff !important;
+                        border: 1px solid #e2e8f0 !important;
+                        border-left: 4px solid var(--teal) !important;
+                        border-radius: 8px !important;
                     }
                     /* Keep backgrounds of panels white but preserve structure */
-                    .glass-panel, .persona-card, .glass-input, .metric-box, blockquote {
+                    .glass-panel, .persona-card, .glass-input, .metric-box {
                         backdrop-filter: none !important;
                         background: #ffffff !important;
                         border: 1px solid #e2e8f0 !important;
                         box-shadow: none !important;
+                        padding: 24px !important;
+                        margin-bottom: 24px !important;
                     }
                     /* Tag cloud styling for light mode */
                     .tag-cloud span {
                         background: #f1f5f9 !important;
                         border: 1px solid #cbd5e1 !important;
                         color: #0b1c3c !important;
+                        margin: 4px !important;
+                        padding: 6px 12px !important;
+                        display: inline-block !important;
                     }
                     /* Hide tooltips */
                     .tooltip-text, .info-icon, .tooltip-container svg {
