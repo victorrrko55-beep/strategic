@@ -379,13 +379,6 @@ export default function Home() {
     }
 
     try {
-        // Toggle PDF styling class to rely on standard CSS rather than html2canvas cloning bugs
-        document.body.classList.add('exporting-pdf');
-        
-        // Give the DOM a significant amount of time (800ms) to recalculate layout and repaint
-        // If this is too short, html2canvas will capture the old dark mode (white text) on a white background!
-        await new Promise(resolve => setTimeout(resolve, 800));
-
         const html2pdf = (await import('html2pdf.js')).default;
         const opt = {
           margin:       0.3,
@@ -394,7 +387,55 @@ export default function Home() {
           html2canvas:  { 
             scale: 2, 
             useCORS: true, 
-            windowWidth: 1200
+            backgroundColor: '#ffffff',
+            windowWidth: 1200,
+            onclone: (clonedDoc) => {
+                // Brute-force inline styles on every single element. 
+                // This guarantees html2canvas cannot ignore or miscalculate CSS!
+                const allElements = clonedDoc.querySelectorAll('*');
+                allElements.forEach(el => {
+                    el.style.color = '#0b1c3c'; // Force ALL text to dark blue
+                    el.style.textShadow = 'none';
+                    
+                    if (el.classList.contains('tooltip-text') || el.classList.contains('info-icon') || el.tagName.toLowerCase() === 'svg') {
+                        el.style.display = 'none'; // Hide tooltips
+                    }
+                });
+
+                // Restore Title Colors via strict inline style
+                clonedDoc.querySelectorAll('h3, h3 *').forEach(el => { el.style.color = '#5865F2'; el.style.marginTop = '30px'; el.style.marginBottom = '16px'; });
+                clonedDoc.querySelectorAll('h4, h4 *').forEach(el => { el.style.color = '#06b6d4'; el.style.marginTop = '30px'; el.style.marginBottom = '16px'; });
+                
+                // Improve paragraph spacing for readability
+                clonedDoc.querySelectorAll('p, li').forEach(el => {
+                    el.style.lineHeight = '1.8';
+                    el.style.marginBottom = '16px';
+                });
+
+                // Solidify glass panels into clean white borders
+                clonedDoc.querySelectorAll('.glass-panel, .persona-card, .glass-input, .metric-box').forEach(el => {
+                    el.style.background = '#ffffff';
+                    el.style.border = '1px solid #e2e8f0';
+                    el.style.backdropFilter = 'none';
+                    el.style.boxShadow = 'none';
+                    el.style.padding = '24px';
+                    el.style.marginBottom = '24px';
+                });
+
+                // Force the 2-column SWOT grid explicitly
+                clonedDoc.querySelectorAll('blockquote').forEach(el => {
+                    el.style.width = '46%';
+                    el.style.display = 'inline-block';
+                    el.style.verticalAlign = 'top';
+                    el.style.margin = '1.5%';
+                    el.style.padding = '20px';
+                    el.style.boxSizing = 'border-box';
+                    el.style.background = '#ffffff';
+                    el.style.border = '1px solid #e2e8f0';
+                    el.style.borderLeft = '4px solid #6ee3c5';
+                    el.style.borderRadius = '8px';
+                });
+            }
           },
           pagebreak:    { mode: ['css', 'avoid-all'] },
           jsPDF:        { unit: 'in', format: 'tabloid', orientation: 'landscape' }
@@ -405,9 +446,6 @@ export default function Home() {
     } catch (err) {
         console.error("PDF Export Crash: ", err);
         alert("The PDF Exporter failed. Please check the browser console.");
-    } finally {
-        // Revert styling back to dark mode
-        document.body.classList.remove('exporting-pdf');
     }
   };
 
