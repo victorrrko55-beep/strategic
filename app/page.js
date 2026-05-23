@@ -387,28 +387,37 @@ export default function Home() {
           html2canvas:  { 
             scale: 2, 
             useCORS: true, 
-            backgroundColor: '#111629', 
+            backgroundColor: '#ffffff', 
             windowWidth: 1200,
             onclone: (clonedDoc) => {
-                // html2canvas often fails to resolve CSS variables from Next.js injected stylesheets.
-                // We inject them explicitly to ensure text colors render correctly instead of defaulting to black/transparent.
                 const style = clonedDoc.createElement('style');
                 style.innerHTML = `
                     :root {
-                        --text-main: #ffffff !important;
-                        --text-muted: #a0aec0 !important;
                         --accent-blue: #5865F2 !important;
                         --teal: #6ee3c5 !important;
                     }
                     body, #ai-output-container {
-                        background: #111629 !important;
-                        color: #ffffff !important;
+                        background: #ffffff !important;
+                        color: #0b1c3c !important; /* Dark Blue Text */
                     }
-                    .glass-panel, .persona-card, .glass-input, .metric-box, .tag-cloud span {
+                    /* Force main text elements to dark blue */
+                    p, span:not(.tag-cloud span), li, blockquote {
+                        color: #0b1c3c !important;
+                    }
+                    /* Keep backgrounds of panels white but preserve structure */
+                    .glass-panel, .persona-card, .glass-input, .metric-box, blockquote {
                         backdrop-filter: none !important;
-                        background: #1a2035 !important; 
+                        background: #ffffff !important;
+                        border: 1px solid #e2e8f0 !important;
                         box-shadow: none !important;
                     }
+                    /* Tag cloud styling for light mode */
+                    .tag-cloud span {
+                        background: #f1f5f9 !important;
+                        border: 1px solid #cbd5e1 !important;
+                        color: #0b1c3c !important;
+                    }
+                    /* Hide tooltips */
                     .tooltip-text, .info-icon, .tooltip-container svg {
                         display: none !important;
                     }
