@@ -392,23 +392,29 @@ export default function Home() {
             onclone: (clonedDoc) => {
                 const style = clonedDoc.createElement('style');
                 style.innerHTML = `
-                    :root {
-                        --accent-blue: #5865F2 !important;
-                        --teal: #6ee3c5 !important;
+                    /* Bulletproof global color override to dark blue */
+                    * {
+                        color: #0b1c3c !important;
+                        text-shadow: none !important;
+                    }
+                    /* Re-apply vibrant colors to titles explicitly */
+                    h3, h3 * {
+                        color: #5865F2 !important; /* Accent Blue */
+                        margin-top: 30px !important;
+                        margin-bottom: 16px !important;
+                    }
+                    h4, h4 * {
+                        color: #06b6d4 !important; /* Deep Cyan for better contrast on white */
+                        margin-top: 30px !important;
+                        margin-bottom: 16px !important;
                     }
                     body, #ai-output-container {
                         background: #ffffff !important;
-                        color: #0b1c3c !important; /* Dark Blue Text */
                         font-family: sans-serif !important;
                     }
                     /* Add ample space and line-height for readability */
-                    p, span:not(.tag-cloud span), li {
-                        color: #0b1c3c !important;
+                    p, li {
                         line-height: 1.8 !important;
-                        margin-bottom: 16px !important;
-                    }
-                    h3, h4 {
-                        margin-top: 30px !important;
                         margin-bottom: 16px !important;
                     }
                     /* Force SWOT blockquotes into a clean 2-column grid */
@@ -450,6 +456,7 @@ export default function Home() {
                 clonedDoc.head.appendChild(style);
             }
           },
+          pagebreak:    { mode: ['css', 'avoid-all'] },
           jsPDF:        { unit: 'in', format: 'tabloid', orientation: 'landscape' }
         };
         
