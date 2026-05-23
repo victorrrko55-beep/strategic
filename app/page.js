@@ -387,24 +387,27 @@ export default function Home() {
           html2canvas:  { 
             scale: 2, 
             useCORS: true, 
-            backgroundColor: '#ffffff', 
+            backgroundColor: '#111629', 
             windowWidth: 1200,
             onclone: (clonedDoc) => {
-                // Force a clean print-friendly theme for the PDF
+                // html2canvas often fails to resolve CSS variables from Next.js injected stylesheets.
+                // We inject them explicitly to ensure text colors render correctly instead of defaulting to black/transparent.
                 const style = clonedDoc.createElement('style');
                 style.innerHTML = `
-                    * {
-                        color: #000000 !important;
-                        text-shadow: none !important;
-                        box-shadow: none !important;
-                    }
-                    .glass-panel, .persona-card, .metric-box, blockquote, .tag-cloud span, .glass-input {
-                        background: #ffffff !important;
-                        border: 1px solid #cccccc !important;
-                        backdrop-filter: none !important;
+                    :root {
+                        --text-main: #ffffff !important;
+                        --text-muted: #a0aec0 !important;
+                        --accent-blue: #5865F2 !important;
+                        --teal: #6ee3c5 !important;
                     }
                     body, #ai-output-container {
-                        background: #ffffff !important;
+                        background: #111629 !important;
+                        color: #ffffff !important;
+                    }
+                    .glass-panel, .persona-card, .glass-input, .metric-box, .tag-cloud span {
+                        backdrop-filter: none !important;
+                        background: #1a2035 !important; 
+                        box-shadow: none !important;
                     }
                     .tooltip-text, .info-icon, .tooltip-container svg {
                         display: none !important;
