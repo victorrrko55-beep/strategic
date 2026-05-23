@@ -913,3 +913,51 @@ select.glass-input option {
   0% { transform: scale(0.95); opacity: 0.8; filter: brightness(1); }
   100% { transform: scale(1.05); opacity: 1; filter: brightness(1.4); }
 }
+
+/* =========================================
+   PDF EXPORT THEME
+   ========================================= */
+body.exporting-pdf, body.exporting-pdf #ai-output-container {
+    background: #ffffff !important;
+    color: #0b1c3c !important;
+}
+body.exporting-pdf * {
+    color: #0b1c3c !important;
+    text-shadow: none !important;
+}
+body.exporting-pdf h3, body.exporting-pdf h3 * {
+    color: #5865F2 !important;
+}
+body.exporting-pdf h4, body.exporting-pdf h4 * {
+    color: #06b6d4 !important;
+}
+body.exporting-pdf .glass-panel, 
+body.exporting-pdf .persona-card, 
+body.exporting-pdf .glass-input, 
+body.exporting-pdf .metric-box {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+body.exporting-pdf blockquote {
+    width: 46% !important;
+    display: inline-block !important;
+    vertical-align: top !important;
+    margin: 1.5% !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-left: 4px solid var(--teal) !important;
+    border-radius: 8px !important;
+}
+body.exporting-pdf p, body.exporting-pdf li {
+    line-height: 1.8 !important;
+    margin-bottom: 16px !important;
+}
+body.exporting-pdf .tooltip-text, 
+body.exporting-pdf .info-icon, 
+body.exporting-pdf .tooltip-container svg {
+    display: none !important;
+}
