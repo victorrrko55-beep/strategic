@@ -91,6 +91,10 @@ How do we exploit the weaknesses of ${competitors}? Format each explicitly with 
 #### Friction 2: [Name]
 #### Friction 3: [Name]
 
+### SECTION D: Strategy Compass Matrix of Target Company
+Generate a strict Markdown table crossing 4 Dimensions with the SWOT analysis. You MUST use exactly these columns: "Dimension", "Strengths", "Weaknesses", "Opportunities", "Threats". 
+You MUST use exactly these 4 rows for the Dimension column: "Market", "Customers", "Competitors", "Internal". Fill the intersecting cells with concise, comma-separated keywords or phrases.
+
 Be specific and rigorous. Keep each point extremely concise (1-2 sentences max) so the document is highly scannable, but DO NOT skip any of the sections above.`;
 
     let generatedText = "";

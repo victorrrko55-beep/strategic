@@ -428,7 +428,41 @@ select.glass-input option {
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(88, 101, 242, 0); }
 }
 
-/* Custom AI Infographic Rendering Tools */
+/* Markdown Table Styling for Strategy Matrix */
+.output-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  background: var(--glass-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.output-section th {
+  background: rgba(88, 101, 242, 0.15); /* Soft Accent Blue background */
+  color: var(--accent-blue);
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(88, 101, 242, 0.3);
+}
+.output-section td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-base);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.output-section tr:last-child td {
+  border-bottom: none;
+}
+.output-section tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* AI Output Container Typography Adjustments */
 .output-section blockquote {
   width: calc(50% - 26px);
   display: inline-block;
@@ -971,6 +1005,29 @@ select.glass-input option {
     margin-left: 20px !important;
     padding-left: 20px !important;
     display: block !important;
+}
+.exporting-pdf table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+    font-size: 10pt !important;
+    background: #ffffff !important;
+}
+.exporting-pdf th {
+    background: #f1f5f9 !important;
+    color: #0b1c3c !important;
+    padding: 12px !important;
+    text-align: left !important;
+    font-weight: bold !important;
+    border: 1px solid #cbd5e1 !important;
+}
+.exporting-pdf td {
+    padding: 12px !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0b1c3c !important;
+    vertical-align: top !important;
+    line-height: 1.5 !important;
 }
 .exporting-pdf .tooltip-text, 
 .exporting-pdf .info-icon, 
