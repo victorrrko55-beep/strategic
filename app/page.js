@@ -383,6 +383,20 @@ export default function Home() {
         // Toggle PDF styling class to rely on standard CSS rather than html2canvas cloning bugs
         element.classList.add('exporting-pdf');
         
+        // --- 100% Reliable DOM-level Page Break Injection ---
+        // html2pdf ignores CSS page-breaks on floated elements.
+        // We forcibly inject its native page-break tag right before the 3rd blockquote (Opportunities)
+        let injectedPageBreak = null;
+        if (activeTab === 'compass') {
+            const blockquotes = element.querySelectorAll('blockquote');
+            if (blockquotes.length >= 3) {
+                injectedPageBreak = document.createElement('div');
+                injectedPageBreak.className = 'html2pdf__page-break';
+                injectedPageBreak.style.clear = 'both';
+                blockquotes[2].parentNode.insertBefore(injectedPageBreak, blockquotes[2]);
+            }
+        }
+
         // Give the DOM a moment to recalculate layout and repaint
         await new Promise(resolve => setTimeout(resolve, 200));
 
@@ -409,6 +423,12 @@ export default function Home() {
     } finally {
         // Revert styling back to dark mode
         element.classList.remove('exporting-pdf');
+        
+        // Remove the injected page break so it doesn't mess up the screen UI
+        if (activeTab === 'compass' && element) {
+            const injectedBreaks = element.querySelectorAll('.html2pdf__page-break');
+            injectedBreaks.forEach(el => el.parentNode.removeChild(el));
+        }
     }
   };
 
