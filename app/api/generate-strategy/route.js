@@ -80,16 +80,22 @@ Provide deep, dense business logic. For every single point you make, you MUST ap
 > - point [Source: ...]
 
 ### SECTION B: Actionable Strategic Levers
-Given the target experience of ${experience} and the objective of ${objective}, what are the 3 most effective levers? Format each explicitly with an h4, using exactly this format:
+Given the target experience of ${experience} and the objective of ${objective}, what are the 3 most effective levers? For each lever, provide the h4 title followed immediately by a detailed, highly specific strategic description paragraph.
 #### Lever 1: [Name]
+[Detailed strategic description...]
 #### Lever 2: [Name]
+[Detailed strategic description...]
 #### Lever 3: [Name]
+[Detailed strategic description...]
 
 ### SECTION C: Competitor Friction Points
-How do we exploit the weaknesses of ${competitors}? Format each explicitly with an h4:
+How do we exploit the weaknesses of ${competitors}? For each friction point, provide the h4 title followed immediately by a detailed, actionable tactical description paragraph.
 #### Friction 1: [Name]
+[Detailed tactical description...]
 #### Friction 2: [Name]
+[Detailed tactical description...]
 #### Friction 3: [Name]
+[Detailed tactical description...]
 
 ### SECTION D: Strategy Compass Matrix of Target Company
 Generate a strict Markdown table crossing 4 Dimensions with the SWOT analysis. You MUST use exactly these columns: "Dimension", "Strengths", "Weaknesses", "Opportunities", "Threats". 
@@ -105,7 +111,7 @@ Be specific and rigorous. Keep each point extremely concise (1-2 sentences max) 
         const payload = {
             contents: [{
                 role: 'user',
-                parts: [{ text: `${systemPrompt}\n\nTask: Generate my Strategy Compass matrix now based on the provided data.` }]
+                parts: [{ text: `${systemPrompt}\n\nTask: Generate the complete Strategic Analysis document (Sections A, B, C, and D) now based on the provided data.` }]
             }]
         };
 
@@ -126,7 +132,7 @@ Be specific and rigorous. Keep each point extremely concise (1-2 sentences max) 
             model: 'llama-3.1-8b-instant',
             messages: [
                 { role: 'system', content: systemPrompt },
-                { role: 'user', content: 'Generate my Strategy Compass matrix now based on the provided data.' }
+                { role: 'user', content: 'Generate the complete Strategic Analysis document (Sections A, B, C, and D) now based on the provided data.' }
             ],
             temperature: 0.7,
             max_tokens: 1500
@@ -140,7 +146,7 @@ Be specific and rigorous. Keep each point extremely concise (1-2 sentences max) 
             model: 'llama3', // Assumes user has `ollama run llama3`
             messages: [
                 { role: 'system', content: systemPrompt },
-                { role: 'user', content: 'Generate my Strategy Compass matrix now based on the provided data.' }
+                { role: 'user', content: 'Generate the complete Strategic Analysis document (Sections A, B, C, and D) now based on the provided data.' }
             ],
             temperature: 0.7,
             max_tokens: 1500
