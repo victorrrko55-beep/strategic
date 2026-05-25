@@ -383,37 +383,6 @@ export default function Home() {
         // Toggle PDF styling class to rely on standard CSS rather than html2canvas cloning bugs
         element.classList.add('exporting-pdf');
         
-        // --- 100% Reliable DOM-level Row Wrapping & Page Break ---
-        // We dynamically wrap S+W into row1, and O+T into row2.
-        // This guarantees they sit side-by-side in flexbox and forces a hard page break between rows.
-        if (activeTab === 'compass') {
-            const blockquotes = Array.from(element.querySelectorAll('blockquote'));
-            if (blockquotes.length >= 4) {
-                const row1 = document.createElement('div');
-                row1.className = 'temp-pdf-row'; 
-                row1.style.display = 'block';
-                row1.style.width = '100%';
-                row1.style.overflow = 'hidden'; // clearfix for floated children
-                row1.style.marginBottom = '20px';
-                
-                const row2 = document.createElement('div');
-                row2.className = 'temp-pdf-row html2pdf__page-break'; // Force page break before OT
-                row2.style.display = 'block';
-                row2.style.width = '100%';
-                row2.style.overflow = 'hidden'; // clearfix for floated children
-
-                // Insert row1 before the 1st blockquote and move S & W inside
-                blockquotes[0].parentNode.insertBefore(row1, blockquotes[0]);
-                row1.appendChild(blockquotes[0]);
-                row1.appendChild(blockquotes[1]);
-                
-                // Insert row2 before the 3rd blockquote and move O & T inside
-                blockquotes[2].parentNode.insertBefore(row2, blockquotes[2]);
-                row2.appendChild(blockquotes[2]);
-                row2.appendChild(blockquotes[3]);
-            }
-        }
-
         // Give the DOM a moment to recalculate layout and repaint
         await new Promise(resolve => setTimeout(resolve, 200));
 
@@ -428,7 +397,7 @@ export default function Home() {
             backgroundColor: '#ffffff',
             windowWidth: 1200
           },
-          pagebreak:    { mode: ['css', 'legacy', 'avoid-all'] },
+          pagebreak:    { mode: ['css', 'avoid-all'] },
           jsPDF:        { unit: 'in', format: 'tabloid', orientation: 'landscape' }
         };
         
@@ -440,17 +409,6 @@ export default function Home() {
     } finally {
         // Revert styling back to dark mode
         element.classList.remove('exporting-pdf');
-        
-        // Unwrap the temp rows back to their original state
-        if (activeTab === 'compass' && element) {
-            const tempRows = element.querySelectorAll('.temp-pdf-row');
-            tempRows.forEach(row => {
-                while (row.firstChild) {
-                    row.parentNode.insertBefore(row.firstChild, row);
-                }
-                row.parentNode.removeChild(row);
-            });
-        }
     }
   };
 

@@ -991,10 +991,10 @@ select.glass-input option {
     box-shadow: none !important;
 }
 .exporting-pdf blockquote {
-    width: 48% !important;
+    width: 46% !important;
     float: left !important;
     display: block !important;
-    margin: 0 !important;
+    margin: 1.5% !important;
     padding: 20px !important;
     box-sizing: border-box !important;
     background: #ffffff !important;
@@ -1002,20 +1002,6 @@ select.glass-input option {
     border-left: 4px solid var(--teal) !important;
     border-radius: 8px !important;
     min-height: 150px !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-.exporting-pdf .temp-pdf-row blockquote:first-child {
-    margin-right: 4% !important;
-}
-.exporting-pdf .temp-pdf-row.html2pdf__page-break {
-    page-break-before: always !important; /* Backup for legacy mode */
-}
-/* Classic clearfix to force html2canvas to calculate the row height correctly! */
-.exporting-pdf .temp-pdf-row::after {
-    content: "";
-    display: table !important;
-    clear: both !important;
 }
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;
