@@ -921,9 +921,20 @@ select.glass-input option {
     background: #ffffff !important;
     color: #0b1c3c !important;
 }
-.exporting-pdf * {
+/* html2canvas struggles with the universal selector, so we target text specifically */
+.exporting-pdf *,
+.exporting-pdf p,
+.exporting-pdf span,
+.exporting-pdf li,
+.exporting-pdf ul,
+.exporting-pdf strong,
+.exporting-pdf em,
+.exporting-pdf b,
+.exporting-pdf i {
     color: #0b1c3c !important;
     text-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 .exporting-pdf h3, .exporting-pdf h3 * {
     color: #5865F2 !important;
@@ -955,6 +966,11 @@ select.glass-input option {
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;
     margin-bottom: 16px !important;
+}
+.exporting-pdf blockquote ul, .exporting-pdf blockquote ol {
+    margin-left: 20px !important;
+    padding-left: 20px !important;
+    display: block !important;
 }
 .exporting-pdf .tooltip-text, 
 .exporting-pdf .info-icon, 

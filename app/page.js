@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import * as XLSX from 'xlsx';
 
 export default function Home() {
@@ -806,7 +807,7 @@ export default function Home() {
                     <div className="placeholder-content no-border" style={{ display: 'block' }}>
                         <div style={{ textAlign: 'left', width: '100%', fontSize: '0.9rem', lineHeight: '1.6' }}>
                             <div id="ai-output-container">
-                                <ReactMarkdown>{aiResponse}</ReactMarkdown>
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
                             </div>
                             
                             {parsedLevers.length > 0 && (
@@ -1682,7 +1683,7 @@ export default function Home() {
         <div className="chat-history">
           {chatMessages.map((msg, idx) => (
             <div key={idx} className={`chat-bubble ${msg.role === 'user' ? 'message-user' : 'message-ai'}`}>
-              <ReactMarkdown>{msg.content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
             </div>
           ))}
           {isChatTyping && (
