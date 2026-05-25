@@ -1002,6 +1002,15 @@ select.glass-input option {
     border-left: 4px solid var(--teal) !important;
     border-radius: 8px !important;
     min-height: 150px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+/* Force the 3rd blockquote (Opportunities) to drop completely below the 1st row to enforce a 2x2 grid */
+.exporting-pdf blockquote:nth-of-type(3) {
+    clear: both !important;
+    /* If avoiding page-breaks inside isn't enough to push it naturally, force it: */
+    page-break-before: always !important;
+    break-before: always !important;
 }
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;
