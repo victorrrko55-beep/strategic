@@ -812,7 +812,7 @@ export default function Home() {
                   {generationState === 'idle' && !aiError && (
                     <div className="placeholder-content">
                       <div className="pulse-ring"></div>
-                      <p>Ready to synthesize market data...</p>
+                      <p>Ready to Strategic Analyze market data to find the North Star</p>
                     </div>
                   )}
 
