@@ -1011,6 +1011,12 @@ select.glass-input option {
 .exporting-pdf .temp-pdf-row.html2pdf__page-break {
     page-break-before: always !important; /* Backup for legacy mode */
 }
+/* Classic clearfix to force html2canvas to calculate the row height correctly! */
+.exporting-pdf .temp-pdf-row::after {
+    content: "";
+    display: table !important;
+    clear: both !important;
+}
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;
     margin-bottom: 16px !important;
