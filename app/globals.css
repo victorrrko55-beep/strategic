@@ -1016,15 +1016,25 @@ select.glass-input option {
     margin-bottom: 16px !important;
 }
 .exporting-pdf blockquote ul, .exporting-pdf blockquote ol {
-    margin-left: 10px !important;
-    padding-left: 10px !important;
-    display: block !important;
-    list-style-position: outside !important; /* Put bullet naturally outside but padded in */
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+}
+.exporting-pdf blockquote li {
+    display: flex !important;
+    align-items: flex-start !important;
+    margin-bottom: 12px !important;
+}
+.exporting-pdf blockquote li::before {
+    content: "•";
+    margin-right: 8px !important;
+    color: #5865F2 !important;
+    font-weight: bold !important;
 }
 .exporting-pdf li p {
-    display: inline !important; /* Forces markdown paragraphs to stay on the same line as the bullet */
     margin: 0 !important;
     padding: 0 !important;
+    display: block !important;
 }
 .exporting-pdf blockquote strong {
     color: #5865F2 !important; /* Accent Blue */

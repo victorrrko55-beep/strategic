@@ -66,7 +66,10 @@ ${pdfText ? pdfText.substring(0, 15000) : "No PDF uploaded."}
 
 Structure your response with:
 ### SECTION A: Advanced SWOT Analysis
-Provide deep, dense business logic. For every single point you make, you MUST append a plausible or inferred reference source in brackets (e.g., "[Source: Industry Analysis 2024]", "[Source: Competitor Annual Report]", or "[Source: Uploaded PDF Reference]"). Format exactly as four SEPARATE Markdown blockquotes. You MUST separate each blockquote by an empty blank line so they do not merge together:
+Provide deep, dense business logic. For every single point you make, you MUST append a plausible or inferred reference source in brackets (e.g., "[Source: Industry Analysis 2024]"). Format exactly as four SEPARATE Markdown blockquotes. 
+CRITICAL RULES FOR SWOT:
+1. You MUST prepend the "> " blockquote character to EVERY SINGLE LINE of the SWOT sections, including the titles AND the bullet points! Do not drop the "> " prefix!
+2. You MUST separate each blockquote by an empty blank line so they do not merge together.
 > **Strengths**
 > - point [Source: ...]
 
