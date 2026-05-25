@@ -1002,12 +1002,14 @@ select.glass-input option {
     border-left: 4px solid var(--teal) !important;
     border-radius: 8px !important;
     min-height: 150px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-column !important;
 }
-/* Force a page break before the 3rd blockquote (Opportunities) so SW and OT are on separate pages */
-.exporting-pdf blockquote:nth-of-type(3) {
-    page-break-before: always !important;
-    break-before: page !important;
-    clear: both !important;
+/* Let html2pdf naturally push the 2nd row to the next page via break-inside: avoid */
+.exporting-pdf blockquote:nth-of-type(3),
+.exporting-pdf blockquote:nth-of-type(4) {
+    /* If the page break doesn't happen automatically, clear:both helps force flow */
+    clear: none !important;
 }
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;
