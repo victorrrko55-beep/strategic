@@ -992,7 +992,7 @@ select.glass-input option {
 }
 .exporting-pdf blockquote {
     width: 48% !important;
-    float: none !important;
+    float: left !important;
     display: block !important;
     margin: 0 !important;
     padding: 20px !important;
@@ -1005,11 +1005,11 @@ select.glass-input option {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
 }
-.exporting-pdf blockquote:nth-of-type(3),
-.exporting-pdf blockquote:nth-of-type(4) {
-    page-break-before: auto !important;
-    break-before: auto !important;
-    clear: none !important;
+.exporting-pdf .temp-pdf-row blockquote:first-child {
+    margin-right: 4% !important;
+}
+.exporting-pdf .temp-pdf-row.html2pdf__page-break {
+    page-break-before: always !important; /* Backup for legacy mode */
 }
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;

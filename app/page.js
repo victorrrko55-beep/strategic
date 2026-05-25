@@ -391,16 +391,16 @@ export default function Home() {
             if (blockquotes.length >= 4) {
                 const row1 = document.createElement('div');
                 row1.className = 'temp-pdf-row'; 
-                row1.style.display = 'flex';
-                row1.style.justifyContent = 'space-between';
+                row1.style.display = 'block';
                 row1.style.width = '100%';
+                row1.style.overflow = 'hidden'; // clearfix for floated children
                 row1.style.marginBottom = '20px';
                 
                 const row2 = document.createElement('div');
                 row2.className = 'temp-pdf-row html2pdf__page-break'; // Force page break before OT
-                row2.style.display = 'flex';
-                row2.style.justifyContent = 'space-between';
+                row2.style.display = 'block';
                 row2.style.width = '100%';
+                row2.style.overflow = 'hidden'; // clearfix for floated children
 
                 // Insert row1 before the 1st blockquote and move S & W inside
                 blockquotes[0].parentNode.insertBefore(row1, blockquotes[0]);
@@ -428,7 +428,7 @@ export default function Home() {
             backgroundColor: '#ffffff',
             windowWidth: 1200
           },
-          pagebreak:    { mode: ['css', 'avoid-all'] },
+          pagebreak:    { mode: ['css', 'legacy', 'avoid-all'] },
           jsPDF:        { unit: 'in', format: 'tabloid', orientation: 'landscape' }
         };
         
