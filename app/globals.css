@@ -476,6 +476,10 @@ select.glass-input option {
   box-sizing: border-box;
 }
 
+.output-section blockquote strong {
+  color: var(--accent-blue);
+}
+
 .output-section h3 {
   clear: both;
   padding-top: 10px;
@@ -1006,6 +1010,9 @@ select.glass-input option {
     padding-left: 20px !important;
     display: block !important;
 }
+.exporting-pdf blockquote strong {
+    color: #5865F2 !important; /* Accent Blue */
+}
 .exporting-pdf table {
     width: 100% !important;
     border-collapse: collapse !important;
@@ -1016,7 +1023,7 @@ select.glass-input option {
 }
 .exporting-pdf th {
     background: #f1f5f9 !important;
-    color: #0b1c3c !important;
+    color: #5865F2 !important; /* Accent Blue */
     padding: 12px !important;
     text-align: left !important;
     font-weight: bold !important;
