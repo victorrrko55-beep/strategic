@@ -1003,6 +1003,12 @@ select.glass-input option {
     border-radius: 8px !important;
     min-height: 150px !important;
 }
+/* Force a page break before the 3rd blockquote (Opportunities) so SW and OT are on separate pages */
+.exporting-pdf blockquote:nth-of-type(3) {
+    page-break-before: always !important;
+    break-before: page !important;
+    clear: both !important;
+}
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;
     margin-bottom: 16px !important;
