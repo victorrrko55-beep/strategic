@@ -991,10 +991,10 @@ select.glass-input option {
     box-shadow: none !important;
 }
 .exporting-pdf blockquote {
-    width: 46% !important;
-    float: left !important;
+    width: 48% !important;
+    float: none !important;
     display: block !important;
-    margin: 1.5% !important;
+    margin: 0 !important;
     padding: 20px !important;
     box-sizing: border-box !important;
     background: #ffffff !important;
@@ -1005,13 +1005,10 @@ select.glass-input option {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
 }
-/* Force a page break before the 3rd blockquote (Opportunities) so SW and OT are on separate pages */
-.exporting-pdf blockquote:nth-of-type(3) {
-    page-break-before: always !important;
-    break-before: always !important;
-    clear: both !important;
-}
+.exporting-pdf blockquote:nth-of-type(3),
 .exporting-pdf blockquote:nth-of-type(4) {
+    page-break-before: auto !important;
+    break-before: auto !important;
     clear: none !important;
 }
 .exporting-pdf p, .exporting-pdf li {
@@ -1022,7 +1019,12 @@ select.glass-input option {
     margin-left: 10px !important;
     padding-left: 10px !important;
     display: block !important;
-    list-style-position: inside !important;
+    list-style-position: outside !important; /* Put bullet naturally outside but padded in */
+}
+.exporting-pdf li p {
+    display: inline !important; /* Forces markdown paragraphs to stay on the same line as the bullet */
+    margin: 0 !important;
+    padding: 0 !important;
 }
 .exporting-pdf blockquote strong {
     color: #5865F2 !important; /* Accent Blue */
