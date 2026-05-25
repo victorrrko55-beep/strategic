@@ -976,6 +976,7 @@ select.glass-input option {
 }
 .exporting-pdf h3, .exporting-pdf h3 * {
     color: #5865F2 !important;
+    clear: both !important;
 }
 .exporting-pdf h4, .exporting-pdf h4 * {
     color: #06b6d4 !important;
@@ -991,8 +992,8 @@ select.glass-input option {
 }
 .exporting-pdf blockquote {
     width: 46% !important;
-    display: inline-block !important;
-    vertical-align: top !important;
+    float: left !important;
+    display: block !important;
     margin: 1.5% !important;
     padding: 20px !important;
     box-sizing: border-box !important;
@@ -1000,15 +1001,17 @@ select.glass-input option {
     border: 1px solid #e2e8f0 !important;
     border-left: 4px solid var(--teal) !important;
     border-radius: 8px !important;
+    min-height: 150px !important;
 }
 .exporting-pdf p, .exporting-pdf li {
     line-height: 1.8 !important;
     margin-bottom: 16px !important;
 }
 .exporting-pdf blockquote ul, .exporting-pdf blockquote ol {
-    margin-left: 20px !important;
-    padding-left: 20px !important;
+    margin-left: 10px !important;
+    padding-left: 10px !important;
     display: block !important;
+    list-style-position: inside !important;
 }
 .exporting-pdf blockquote strong {
     color: #5865F2 !important; /* Accent Blue */
