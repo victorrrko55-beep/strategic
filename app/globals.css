@@ -216,6 +216,13 @@ body {
     font-family: inherit;
 }
 
+@media (hover: none) {
+    .btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
 .btn-primary {
     background: var(--grad-primary);
     color: white;
