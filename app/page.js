@@ -710,9 +710,9 @@ export default function Home() {
               <option value="groq">⚡️ Groq Cloud</option>
               <option value="gemini">🧠 Gemini Pro</option>
             </select>
-            <button className="btn btn-secondary" onClick={handleExportPDF}>Export PDF</button>
-            <button className="btn btn-secondary" onClick={handleExportExcel} style={{ marginLeft: '10px' }}>Export Excel</button>
-            <button className="btn btn-primary" id="ai-assist-btn" onClick={() => setIsChatOpen(!isChatOpen)}>
+            <button type="button" className="btn btn-secondary" onClick={handleExportPDF}>Export PDF</button>
+            <button type="button" className="btn btn-secondary" onClick={handleExportExcel} style={{ marginLeft: '10px' }}>Export Excel</button>
+            <button type="button" className="btn btn-primary" id="ai-assist-btn" onClick={() => setIsChatOpen(!isChatOpen)}>
               {isChatOpen ? '✕ Close Assist' : '✨ AI Analyst Assist'}
             </button>
           </div>
@@ -788,7 +788,7 @@ export default function Home() {
                     </select>
                   </div>
                   
-                  <button 
+                  <button type="button" 
                     className="btn btn-primary full-width mt-1" 
                     onClick={handleGenerate}
                     disabled={generationState === 'generating'}
@@ -836,7 +836,7 @@ export default function Home() {
                                     <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '20px' }}>Select one of the AI-generated levers above to serve as the "True North" direction for synthesizing consumer personas.</p>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                         {parsedLevers.map((lever, idx) => (
-                                            <button 
+                                            <button type="button" 
                                                 key={idx} 
                                                 onClick={() => setSelectedLever(lever)}
                                                 style={{ 
@@ -856,7 +856,7 @@ export default function Home() {
                                             </button>
                                         ))}
                                     </div>
-                                    <button 
+                                    <button type="button" 
                                       className="btn btn-secondary mt-1" 
                                       style={{ fontSize: '0.9rem', marginTop: '24px', width: '100%', opacity: selectedLever ? 1 : 0.5, pointerEvents: selectedLever ? 'auto' : 'none' }}
                                       onClick={() => setActiveTab('persona')}
@@ -975,7 +975,7 @@ export default function Home() {
                     </div>
                   )}
                   
-                  <button 
+                  <button type="button" 
                     className="btn btn-primary full-width mt-1" 
                     onClick={handleGeneratePersona}
                     disabled={personaGenState === 'generating'}
@@ -1135,7 +1135,7 @@ export default function Home() {
                           <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '20px' }}>Select one of the generated Personas above to serve as the target for the UX Journey Mapper.</p>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                               {personaData.map((persona, idx) => (
-                                  <button 
+                                  <button type="button" 
                                       key={idx} 
                                       onClick={() => setSelectedPersona(persona)}
                                       style={{ 
@@ -1171,7 +1171,7 @@ export default function Home() {
                                   </button>
                               ))}
                           </div>
-                          <button 
+                          <button type="button" 
                             className="btn btn-secondary mt-1" 
                             style={{ fontSize: '0.9rem', marginTop: '24px', width: '100%', opacity: selectedPersona ? 1 : 0.5, pointerEvents: selectedPersona ? 'auto' : 'none' }}
                             onClick={() => setActiveTab('scenario')}
@@ -1259,7 +1259,7 @@ export default function Home() {
                     </div>
                   )}
 
-                  <button 
+                  <button type="button" 
                     className="btn btn-primary full-width mt-1" 
                     onClick={handleGenerateScenario}
                     disabled={scenarioGenState === 'generating' || !selectedPersona}
@@ -1383,7 +1383,7 @@ export default function Home() {
                           {scenarioData.sectionA && (
                               <div style={{ marginTop: '30px', textAlign: 'center', padding: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                                   <p style={{ color: 'var(--text-muted)', marginBottom: '16px' }}>Select at least one scenario above to proceed to validation.</p>
-                                  <button 
+                                  <button type="button" 
                                       className="btn btn-primary" 
                                       style={{ fontSize: '1rem', padding: '12px 30px', opacity: selectedScenarios.length > 0 ? 1 : 0.5, pointerEvents: selectedScenarios.length > 0 ? 'auto' : 'none' }}
                                       onClick={() => setActiveTab('validation')}
@@ -1459,7 +1459,7 @@ export default function Home() {
 
                       {validationError && <div className="error-box mt-1">{validationError}</div>}
 
-                      <button 
+                      <button type="button" 
                         className="btn btn-primary full-width mt-1" 
                         onClick={handleValidateScenario}
                         disabled={validationGenState === 'generating' || selectedScenarios.length === 0}
@@ -1568,7 +1568,7 @@ export default function Home() {
                               </div>
 
                               <div style={{ marginTop: '30px', textAlign: 'center', padding: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                                  <button 
+                                  <button type="button" 
                                       className="btn btn-primary" 
                                       style={{ fontSize: '1rem', padding: '12px 30px', opacity: winningScenario ? 1 : 0.5, pointerEvents: winningScenario ? 'auto' : 'none' }}
                                       onClick={() => setActiveTab('summary')}
@@ -1624,7 +1624,7 @@ export default function Home() {
 
                       {summaryError && <div className="error-box mt-1">{summaryError}</div>}
 
-                      <button 
+                      <button type="button" 
                         className="btn btn-primary full-width mt-1" 
                         onClick={handleGenerateSummary}
                         disabled={summaryGenState === 'generating' || !winningScenario}
@@ -1697,7 +1697,7 @@ export default function Home() {
       <aside className={`chat-sidebar ${isChatOpen ? 'open' : ''} glass-panel`}>
         <div className="chat-header">
           <h3>Strategy Copilot</h3>
-          <button className="close-btn" onClick={() => setIsChatOpen(false)}>✕</button>
+          <button type="button" className="close-btn" onClick={() => setIsChatOpen(false)}>✕</button>
         </div>
         
         <div className="chat-history">
@@ -1722,7 +1722,7 @@ export default function Home() {
             onChange={(e) => setCurrentMessage(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); } }}
           />
-          <button className="btn btn-primary send-btn" onClick={handleSendMessage} disabled={isChatTyping || !currentMessage.trim()}>
+          <button type="button" className="btn btn-primary send-btn" onClick={handleSendMessage} disabled={isChatTyping || !currentMessage.trim()}>
             Send
           </button>
         </div>
