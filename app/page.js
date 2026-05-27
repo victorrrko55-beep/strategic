@@ -102,6 +102,10 @@ export default function Home() {
   const handleGenerate = async () => {
     setGenerationState('generating');
     setAiError(null);
+    
+    // Force React to paint the UI state before blocking
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
     try {
         const formData = new FormData();
         formData.append('modelId', aiEngine);
@@ -111,7 +115,7 @@ export default function Home() {
         formData.append('experience', compExperience);
         formData.append('objective', compObjective);
         
-        if (selectedFiles.length > 0) {
+        if (selectedFiles && selectedFiles.length > 0) {
             for (let i = 0; i < selectedFiles.length; i++) {
                 formData.append('files', selectedFiles[i]);
             }
@@ -154,7 +158,7 @@ export default function Home() {
             setGenerationState('idle');
         }
     } catch (err) {
-        setAiError("Failed to connect to AI API.");
+        setAiError(`Fetch Error: ${err.message || JSON.stringify(err)}`);
         setGenerationState('idle');
     }
   };

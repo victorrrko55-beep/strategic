@@ -111,22 +111,12 @@ Be specific and rigorous. Keep each point extremely concise (1-2 sentences max) 
     // -- MULTI-MODEL ROUTER --
     if (modelId === 'gemini') {
         if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is missing from environment variables.");
-        const payload = {
-            contents: [{
-                role: 'user',
-                parts: [{ text: `${systemPrompt}\n\nTask: Generate the complete Strategic Analysis document (Sections A, B, C, and D) now based on the provided data.` }]
-            }]
-        };
-
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+        const response = await ai.models.generateContent({
+            model: 'gemini-1.5-pro',
+            contents: `${systemPrompt}\n\nTask: Generate the complete Strategic Analysis document (Sections A, B, C, and D) now based on the provided data.`
         });
-        const data = await res.json();
-        
-        if (!res.ok) throw new Error(data.error?.message || "Gemini REST API Failed");
-        generatedText = data.candidates[0].content.parts[0].text;
+        generatedText = response.text;
         
     } else if (modelId === 'groq') {
         if (!process.env.GROQ_API_KEY) throw new Error("GROQ_API_KEY is missing from environment variables.");
