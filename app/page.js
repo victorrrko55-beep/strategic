@@ -766,8 +766,17 @@ export default function Home() {
                     {selectedFiles.length > 0 && (
                       <div style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                         {selectedFiles.map((file, i) => (
-                          <span key={i} style={{ fontSize: '0.75rem', background: 'rgba(110, 227, 197, 0.15)', color: 'var(--teal)', padding: '4px 8px', borderRadius: '4px', border: '1px solid rgba(110, 227, 197, 0.3)' }}>
+                          <span key={i} style={{ fontSize: '0.75rem', background: 'rgba(110, 227, 197, 0.15)', color: 'var(--teal)', padding: '4px 8px', borderRadius: '4px', border: '1px solid rgba(110, 227, 197, 0.3)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                             📄 {file.name}
+                            <span 
+                                onClick={() => setSelectedFiles(prev => prev.filter((_, idx) => idx !== i))} 
+                                style={{ cursor: 'pointer', opacity: 0.6, fontSize: '10px' }}
+                                onMouseEnter={(e) => e.target.style.opacity = 1}
+                                onMouseLeave={(e) => e.target.style.opacity = 0.6}
+                                title="Remove File"
+                            >
+                              ✕
+                            </span>
                           </span>
                         ))}
                       </div>
@@ -1451,14 +1460,36 @@ export default function Home() {
                         <label>Interview Question Template (Optional)</label>
                         <div className="file-drop-area glass-input">
                             <span className="file-icon">📄</span>
-                            <span className="file-msg">{valSelectedFiles.length > 0 ? valSelectedFiles.map(f => f.name).join(', ') : 'Upload interview templates'}</span>
+                            <span className="file-msg">{valSelectedFiles.length > 0 ? `${valSelectedFiles.length} file(s) selected` : 'Upload interview templates'}</span>
                             <input 
                               type="file" 
                               className="file-input" 
                               multiple 
-                              onChange={(e) => setValSelectedFiles(Array.from(e.target.files))}
+                              onChange={(e) => {
+                                const incomingFiles = Array.from(e.target.files);
+                                setValSelectedFiles(prev => [...prev, ...incomingFiles]);
+                                e.target.value = '';
+                              }}
                             />
                         </div>
+                        {valSelectedFiles.length > 0 && (
+                          <div style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                            {valSelectedFiles.map((file, i) => (
+                              <span key={i} style={{ fontSize: '0.75rem', background: 'rgba(110, 227, 197, 0.15)', color: 'var(--teal)', padding: '4px 8px', borderRadius: '4px', border: '1px solid rgba(110, 227, 197, 0.3)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                📄 {file.name}
+                                <span 
+                                    onClick={() => setValSelectedFiles(prev => prev.filter((_, idx) => idx !== i))} 
+                                    style={{ cursor: 'pointer', opacity: 0.6, fontSize: '10px' }}
+                                    onMouseEnter={(e) => e.target.style.opacity = 1}
+                                    onMouseLeave={(e) => e.target.style.opacity = 0.6}
+                                    title="Remove File"
+                                >
+                                  ✕
+                                </span>
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
 
                       {validationError && <div className="error-box mt-1">{validationError}</div>}
