@@ -113,7 +113,7 @@ Be specific and rigorous. Keep each point extremely concise (1-2 sentences max) 
         if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is missing from environment variables.");
         const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
         const response = await ai.models.generateContent({
-            model: 'gemini-1.5-pro',
+            model: 'gemini-2.5-flash',
             contents: `${systemPrompt}\n\nTask: Generate the complete Strategic Analysis document (Sections A, B, C, and D) now based on the provided data.`
         });
         generatedText = response.text;

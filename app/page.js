@@ -710,7 +710,7 @@ export default function Home() {
               onChange={(e) => setAiEngine(e.target.value)}
               style={{ width: 'auto', padding: '10px 16px', background: 'rgba(0,0,0,0.5)', cursor: 'pointer', border: '1px solid var(--glass-border)' }}
             >
-              <option value="gemini">🧠 Gemini Pro</option>
+              <option value="gemini">⚡️ Gemini 2.5 Flash</option>
               <option value="groq">⚡️ Groq Cloud</option>
               <option value="ollama">🔒 Local Ollama</option>
             </select>

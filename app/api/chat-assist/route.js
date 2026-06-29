@@ -29,7 +29,7 @@ You may use standard Markdown formatting.`;
         
         const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
         const response = await ai.models.generateContent({
-            model: 'gemini-1.5-pro',
+            model: 'gemini-2.5-flash',
             contents: `${systemPrompt}\n\nChat History:\n${historyText}\n\nUser Question: ${lastMsg}`
         });
         generatedText = response.text;
