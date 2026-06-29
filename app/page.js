@@ -262,6 +262,7 @@ export default function Home() {
         formData.append('valMetrics', valMetrics);
         formData.append('valProfiles', valProfiles);
         formData.append('valCount', valCount);
+        formData.append('targetRegion', sbCountry || personaCountry || compMarket || 'Global / USA');
 
         const res = await fetch('/api/validate-scenario', {
             method: 'POST',

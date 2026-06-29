@@ -13,6 +13,7 @@ export async function POST(req) {
     const valMetrics = formData.get('valMetrics') || 'Not provided';
     const valProfiles = formData.get('valProfiles') || 'Not provided';
     const valCount = formData.get('valCount') || '3';
+    const targetRegion = formData.get('targetRegion') || 'Global / USA';
 
     let scenarios = [];
     try {
@@ -25,10 +26,14 @@ export async function POST(req) {
 Your task is to take the provided Strategic Scenarios and subject them to extreme stress testing by simulating interviews with ${valCount} Virtual Interviewers matching these profiles: ${valProfiles}.
 
 EVALUATION PARAMETERS:
+- Target Market / Region: ${targetRegion}
 - Validation Lenses: ${valLenses}
 - Success Metrics & Thresholds: ${valMetrics}
 - Scenarios to Evaluate:
 ${JSON.stringify(scenarios, null, 2)}
+
+CRITICAL REQUIREMENT FOR VIRTUAL INTERVIEWERS (Section D):
+All virtual interviewers MUST be native residents, consumers, or domain experts belonging to the Target Market / Region (${targetRegion}). Their names, job titles, cultural nuances, and viewpoints MUST strictly reflect authentic locals of ${targetRegion}. For example, if the target region is "US LA" or "Los Angeles, USA", the interviewers must have authentic American names (e.g. Michael Smith, Sarah Jenkins, David Miller) and reflect Los Angeles market dynamics. DO NOT generate Korean names or perspectives unless the target region is specifically Korea!
 
 You must perform a deep, lengthy, rigorous analysis. Do not hold back.
 You must output your response ENTIRELY as a valid JSON object. DO NOT include any markdown formatting wrappers or conversational text!
