@@ -9,7 +9,7 @@ export default function Home() {
   const [generationState, setGenerationState] = useState('idle'); // idle, generating, completed
   const [aiResponse, setAiResponse] = useState('');
   const [aiError, setAiError] = useState(null);
-  const [aiEngine, setAiEngine] = useState('ollama');
+  const [aiEngine, setAiEngine] = useState('gemini');
   const [parsedLevers, setParsedLevers] = useState([]);
   const [selectedLever, setSelectedLever] = useState('');
 
@@ -710,9 +710,9 @@ export default function Home() {
               onChange={(e) => setAiEngine(e.target.value)}
               style={{ width: 'auto', padding: '10px 16px', background: 'rgba(0,0,0,0.5)', cursor: 'pointer', border: '1px solid var(--glass-border)' }}
             >
-              <option value="ollama">🔒 Local Ollama</option>
-              <option value="groq">⚡️ Groq Cloud</option>
               <option value="gemini">🧠 Gemini Pro</option>
+              <option value="groq">⚡️ Groq Cloud</option>
+              <option value="ollama">🔒 Local Ollama</option>
             </select>
             <button type="button" className="btn btn-secondary" onClick={handleExportPDF}>Export PDF</button>
             <button type="button" className="btn btn-secondary" onClick={handleExportExcel} style={{ marginLeft: '10px' }}>Export Excel</button>
