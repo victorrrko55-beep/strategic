@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { GoogleGenAI } from '@google/genai';
 
 export const runtime = 'nodejs';
 
@@ -227,18 +228,13 @@ Use this EXACT JSON schema:
 
     if (modelId === 'gemini') {
         if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is missing.");
-        const payload = {
-            contents: [{ role: 'user', parts: [{ text: systemPrompt }] }],
-            generationConfig: { responseMimeType: "application/json" }
-        };
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+        const response = await ai.models.generateContent({
+            model: 'gemini-1.5-pro',
+            contents: systemPrompt,
+            config: { responseMimeType: "application/json" }
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error?.message || "Gemini REST API Failed");
-        generatedText = data.candidates[0].content.parts[0].text;
+        generatedText = response.text;
         
     } else if (modelId === 'groq' || modelId === 'ollama') {
         let openai;

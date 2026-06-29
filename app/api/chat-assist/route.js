@@ -24,23 +24,15 @@ You may use standard Markdown formatting.`;
     if (modelId === 'gemini') {
         if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is missing from environment variables.");
         
-        const formattedHistory = messages.map(msg => ({
-            role: msg.role === 'user' ? 'user' : 'model',
-            parts: [{ text: msg.content }]
-        }));
-
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                system_instruction: { parts: { text: systemPrompt } },
-                contents: formattedHistory
-            })
-        });
-        const data = await res.json();
+        const lastMsg = messages[messages.length - 1]?.content || "";
+        const historyText = messages.slice(0, -1).map(m => `${m.role.toUpperCase()}: ${m.content}`).join('\n');
         
-        if (!res.ok) throw new Error(data.error?.message || "Gemini REST API Failed");
-        generatedText = data.candidates[0].content.parts[0].text;
+        const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+        const response = await ai.models.generateContent({
+            model: 'gemini-1.5-pro',
+            contents: `${systemPrompt}\n\nChat History:\n${historyText}\n\nUser Question: ${lastMsg}`
+        });
+        generatedText = response.text;
         
     } else if (modelId === 'groq' || modelId === 'ollama') {
         let openai;
