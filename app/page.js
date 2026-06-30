@@ -244,20 +244,36 @@ export default function Home() {
     }
   };
 
+  const loadSampleStage1 = () => {
+    setCompExperience('Urban EV Curbside Charging');
+    setCompUrl('https://strategic-red.vercel.app');
+    setCompMarket('Los Angeles, USA');
+    setCompCompetitors('ChargePoint, Electrify America, EVgo, Tesla');
+    setCompObjective('Market Expansion');
+  };
+
   const loadSampleStage2 = () => {
-    setPersonaAudience('Urban EV Drivers & Apartment Renters');
+    setPersonaExperience('Urban EV Curbside Charging & Apartment Resident Access');
+    setPersonaTarget('Millennials & Gen-Z living in Los Angeles apartments without private garages');
     setPersonaCountry('Los Angeles, USA');
-    setPersonaGoal('Accessible overnight curbside charging without high idle fees');
     setPersonaDevices('iPhone 15 Pro, Tesla App, Apple CarPlay');
-    setPersonaTone('Professional & Empirical');
+    setPersonaError(null);
   };
 
   const loadSampleStage3 = () => {
+    setSelectedPersona({
+      name: "Marcus Vance",
+      archetype: "The Eco-Tech Urban Commuter",
+      quote: "I need reliable overnight EV charging near my LA apartment without worrying about broken plugs or getting blocked.",
+      demographics: { age: 32, location: "Los Angeles, CA", income: "$95,000" },
+      psychographics: [ "Tech early adopter", "Environmentally conscious", "Time-sensitive commuter" ]
+    });
     setSbExperience('Frustration finding working public chargers near apartment complexes');
     setSbCountry('Los Angeles, USA');
     setSbPainPoints('Broken EV chargers, cable theft, blocking by gas cars (ICEing)');
     setSbDevices('Smartphone EV charging apps, NFC contactless payment');
     setSbCompetitors('ChargePoint, Electrify America, EVgo, Tesla Supercharger');
+    setScenarioError(null);
   };
 
   const loadSampleStage4 = () => {
@@ -782,6 +798,11 @@ export default function Home() {
               <div className="grid-layout">
                 {/* Input Form */}
                 <div className="glass-panel input-section">
+                  <div style={{ marginBottom: '16px' }}>
+                    <button type="button" onClick={loadSampleStage1} className="btn" style={{ background: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)', color: '#fff', fontWeight: 'bold', padding: '8px 14px', fontSize: '0.85rem', border: 'none', borderRadius: '8px', cursor: 'pointer', width: '100%' }}>
+                      🧪 Load Sample LA Data (Quick Test Phase 1)
+                    </button>
+                  </div>
                   <h3>Strategic Inputs</h3>
                   <div className="form-group">
                     <label htmlFor="target-experience">Target Experience</label>
