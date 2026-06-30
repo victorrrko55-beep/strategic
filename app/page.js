@@ -4,6 +4,51 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import * as XLSX from 'xlsx';
 
+const METHOD_INFO_DATA = {
+  A: {
+    title: "Section A: Evidence-backed Validation Report",
+    method: "Amazon 'Working Backwards' & PR/FAQ Validation",
+    companies: "Amazon, Google Cloud, Microsoft",
+    desc: "아마존(Amazon)이 신규 사업(AWS, 킨들 등) 기획 시 코드를 작성하기 전 '출시 보도자료(Press Release)'와 '핵심 성공 지표(Success Metrics)' 충족 여부를 엄격히 검증하는 Working Backwards 프레임워크를 적용합니다.",
+    logic: "사용자가 입력한 성공 지표(예: ROIC > 15%, 채택률 > 30%)와 3단계 시나리오 내용을 정면 대조(Stress Testing)하여, 해당 목표가 현실적으로 달성 가능한지 3문단 심층 리포트로 도출합니다."
+  },
+  B: {
+    title: "Section B: Risk & Assumption Log",
+    method: "McKinsey & BCG 'Pre-mortem Analysis'",
+    companies: "McKinsey & Company, BCG, Google X",
+    desc: "구글 X(Google X)와 글로벌 전략 컨설팅 펌에서 '3년 뒤 이 프로젝트가 실패했다고 가정했을 때, 무엇이 우리를 망하게 했는가?'를 역추적하는 Pre-mortem(사전 부검) 기법을 활용합니다.",
+    logic: "시나리오가 현실에서 실행되기 위해 반드시 성립되어야 할 '숨은 가설(Assumption)'을 포착하고, 인허가 지연이나 설비비용 초과 등 비즈니스 치명타 리스크를 도출합니다."
+  },
+  C: {
+    title: "Section C: Executive Recommendation",
+    method: "Supercell 'Kill Culture' & Lean Startup Pivot Matrix",
+    companies: "Supercell, Slack, Y-Combinator",
+    desc: "글로벌 모바일 게임사 슈퍼셀(Clash of Clans)이 검증 단계에서 기준 미달 프로젝트를 가차 없이 'Kill(폐기)'하고 실패를 축하하는 문화 및 린 스타트업의 Pivot or Persevere 의사결정 모델을 적용합니다.",
+    logic: "Section A의 목표 달성 가능성과 Section B의 치명적 리스크의 무게를 종합 평가하여 Go(추진) / Pivot(전략 수정) / Kill(폐기) 판정을 내리고 2문장의 논리적 근거를 제시합니다."
+  },
+  D: {
+    title: "Section D: Virtual Interview Transcripts",
+    method: "IDEO Extreme User Empathy & Synthetic Persona Testing",
+    companies: "IDEO, Airbnb, Microsoft Research",
+    desc: "에어비앤비(Airbnb) 초기 신뢰 시스템 구축을 위해 극단적 이해관계자(Extreme Users)를 롤플레잉한 기법과 최근 LLM 기반의 '합성 고객(Synthetic Users)' 사전 인터뷰 테스트 방법론입니다.",
+    logic: "사용자가 설정한 타겟 지역(예: 미국 LA) 현지인 및 전문가 프로필에 AI가 완벽히 빙의하여, 각 이해관계자 입장에서 시나리오의 맹점을 날카롭게 비판하거나 찬성하는 가상 인터뷰 대본을 생성합니다."
+  },
+  E: {
+    title: "Section E: Interviewer Consensus Map",
+    method: "Google Ventures (GV) Design Sprint Stakeholder Matrix",
+    companies: "Google Ventures (GV), Uber, Blue Bottle",
+    desc: "구글 벤처스(GV)가 투자 포트폴리오 기업의 문제를 4일 만에 해결할 때 쓰는 디자인 스프린트(Design Sprint)의 이해관계자 합의/충돌 매핑 기법을 적용합니다.",
+    logic: "Section D의 여러 가상 면접관들의 발언을 교차 분석하여, 만장일치로 동의하는 핵심 공감대(Consensus)와 서로 정면 충돌하는 쟁점(Clash)을 요약합니다."
+  },
+  F: {
+    title: "Section F: Select Winning Scenario",
+    method: "IDEO 3대 혁신 평가 프레임워크 (Desirability, Feasibility, Viability)",
+    companies: "IDEO, Apple, Tesla",
+    desc: "글로벌 최고 혁신 컨설팅 펌 IDEO가 창안하고 현재 애플, 테슬라 등 글로벌 Top 기업들이 신사업 포트폴리오를 평가하는 3대 비즈니스 절대 척도입니다.",
+    logic: "1) Desirability (고객 매력도), 2) Feasibility (기술/운영 실현가능성), 3) Viability (재무 수익성) 관점에서 시나리오를 1~10점으로 다차원 상대 평가합니다."
+  }
+};
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState('strategy');
   const [generationState, setGenerationState] = useState('idle'); // idle, generating, completed
@@ -55,6 +100,20 @@ export default function Home() {
   const [valCount, setValCount] = useState('3');
   const [valSelectedFiles, setValSelectedFiles] = useState([]);
   const [winningScenario, setWinningScenario] = useState(null);
+  const [activeMethodInfo, setActiveMethodInfo] = useState(null);
+
+  const renderSectionHeader = (title, secKey) => (
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', borderBottom: '1px solid rgba(255,154,158,0.3)', paddingBottom: '10px' }}>
+      <h3 style={{ color: '#ff9a9e', margin: 0 }}>{title}</h3>
+      <button 
+        type="button" 
+        onClick={(e) => { e.stopPropagation(); setActiveMethodInfo(secKey); }} 
+        style={{ background: 'linear-gradient(135deg, rgba(255,154,158,0.2) 0%, rgba(254,207,239,0.2) 100%)', color: '#ff9a9e', border: '1px solid #ff9a9e', borderRadius: '6px', padding: '5px 12px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '5px' }}
+      >
+        ℹ️ Method Info
+      </button>
+    </div>
+  );
 
   // Executive Summary (Phase 5) States
   const [summaryGenState, setSummaryGenState] = useState('idle');
@@ -1606,13 +1665,13 @@ export default function Home() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
                           {/* Section A: Validation Report */}
                           <div className="glass-panel" style={{ padding: '24px' }}>
-                              <h3 style={{ color: '#ff9a9e', marginBottom: '20px', borderBottom: '1px solid rgba(255,154,158,0.3)', paddingBottom: '10px' }}>Section A: Validation Report</h3>
+                              {renderSectionHeader("Section A: Validation Report", "A")}
                               <p style={{ color: 'var(--text-main)', fontSize: '0.95rem', lineHeight: '1.6' }}>{validationData.sectionA}</p>
                           </div>
 
                           {/* Section B: Risk & Assumption Log */}
                           <div className="glass-panel" style={{ padding: '24px' }}>
-                              <h3 style={{ color: '#ff9a9e', marginBottom: '20px', borderBottom: '1px solid rgba(255,154,158,0.3)', paddingBottom: '10px' }}>Section B: Risk & Assumption Log</h3>
+                              {renderSectionHeader("Section B: Risk & Assumption Log", "B")}
                               <ul style={{ listStyleType: 'disc', paddingLeft: '20px', margin: 0 }}>
                                   {validationData.sectionB?.map((risk, idx) => (
                                       <li key={idx} style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '8px' }}>{risk}</li>
@@ -1622,14 +1681,14 @@ export default function Home() {
 
                           {/* Section C: Recommendation */}
                           <div className="glass-panel" style={{ padding: '24px', background: 'rgba(255,154,158,0.05)', border: '1px solid #ff9a9e' }}>
-                              <h3 style={{ color: '#ff9a9e', marginBottom: '10px' }}>Section C: Executive Recommendation</h3>
+                              {renderSectionHeader("Section C: Executive Recommendation", "C")}
                               <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '10px' }}>{validationData.sectionC?.decision}</div>
                               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>{validationData.sectionC?.reasoning}</p>
                           </div>
 
                           {/* Section D: Transcripts */}
                           <div className="glass-panel" style={{ padding: '24px' }}>
-                              <h3 style={{ color: '#ff9a9e', marginBottom: '20px', borderBottom: '1px solid rgba(255,154,158,0.3)', paddingBottom: '10px' }}>Section D: Virtual Interview Transcripts</h3>
+                              {renderSectionHeader("Section D: Virtual Interview Transcripts", "D")}
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                                   {validationData.sectionD?.map((transcript, idx) => (
                                       <div key={idx} style={{ background: 'rgba(0,0,0,0.2)', padding: '16px', borderRadius: '8px' }}>
@@ -1643,13 +1702,13 @@ export default function Home() {
 
                           {/* Section E: Consensus Map */}
                           <div className="glass-panel" style={{ padding: '24px' }}>
-                              <h3 style={{ color: '#ff9a9e', marginBottom: '20px', borderBottom: '1px solid rgba(255,154,158,0.3)', paddingBottom: '10px' }}>Section E: Interviewer Consensus Map</h3>
+                              {renderSectionHeader("Section E: Interviewer Consensus Map", "E")}
                               <p style={{ color: 'var(--text-main)', fontSize: '0.95rem', lineHeight: '1.6' }}>{validationData.sectionE}</p>
                           </div>
 
                           {/* Section F: Score Matrix & Selection */}
                           <div className="glass-panel" style={{ padding: '24px' }}>
-                              <h3 style={{ color: '#ff9a9e', marginBottom: '20px', borderBottom: '1px solid rgba(255,154,158,0.3)', paddingBottom: '10px' }}>Section F: Select Winning Scenario</h3>
+                              {renderSectionHeader("Section F: Select Winning Scenario", "F")}
                               <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.9rem' }}>Click on a scenario below to select it as the winner for the final Executive Summary.</p>
                               
                               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
@@ -1697,6 +1756,58 @@ export default function Home() {
                               </div>
                           </div>
                       </div>
+                  )}
+
+                  {/* Method Info Popup Overlay */}
+                  {activeMethodInfo && METHOD_INFO_DATA[activeMethodInfo] && (
+                    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.8)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', backdropFilter: 'blur(6px)' }} onClick={() => setActiveMethodInfo(null)}>
+                      <div className="glass-panel" style={{ background: '#13151b', border: '1px solid #ff9a9e', borderRadius: '16px', padding: '30px', maxWidth: '580px', width: '100%', boxShadow: '0 25px 60px rgba(0,0,0,0.9)', position: 'relative', textAlign: 'left' }} onClick={(e) => e.stopPropagation()}>
+                        <button 
+                          type="button" 
+                          onClick={() => setActiveMethodInfo(null)} 
+                          style={{ position: 'absolute', top: '16px', right: '20px', background: 'transparent', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer', opacity: 0.7 }}
+                        >
+                          ✕
+                        </button>
+                        <div style={{ color: '#ff9a9e', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: 'bold', marginBottom: '8px' }}>
+                          Methodology & Credibility
+                        </div>
+                        <h3 style={{ color: '#fff', fontSize: '1.25rem', marginBottom: '18px', borderBottom: '1px solid rgba(255,154,158,0.3)', paddingBottom: '12px' }}>
+                          {METHOD_INFO_DATA[activeMethodInfo].title}
+                        </h3>
+                        
+                        <div style={{ background: 'rgba(255,154,158,0.08)', padding: '14px 16px', borderRadius: '8px', borderLeft: '4px solid #ff9a9e', marginBottom: '20px' }}>
+                          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '6px' }}>
+                            <strong style={{ color: '#fff' }}>적용 프레임워크:</strong> {METHOD_INFO_DATA[activeMethodInfo].method}
+                          </div>
+                          <div style={{ fontSize: '0.85rem', color: '#6ee3c5' }}>
+                            <strong style={{ color: '#fff' }}>도입 글로벌 기업:</strong> {METHOD_INFO_DATA[activeMethodInfo].companies}
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: '18px' }}>
+                          <h4 style={{ color: '#ffd93d', fontSize: '0.95rem', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>📌 실무 검증 신뢰성 배경</h4>
+                          <p style={{ color: 'var(--text-main)', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                            {METHOD_INFO_DATA[activeMethodInfo].desc}
+                          </p>
+                        </div>
+
+                        <div style={{ marginBottom: '26px' }}>
+                          <h4 style={{ color: '#6ee3c5', fontSize: '0.95rem', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>⚙️ AI 엔진 추론 로직 (How it works)</h4>
+                          <p style={{ color: 'var(--text-main)', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                            {METHOD_INFO_DATA[activeMethodInfo].logic}
+                          </p>
+                        </div>
+
+                        <button 
+                          type="button" 
+                          onClick={() => setActiveMethodInfo(null)}
+                          style={{ width: '100%', padding: '12px', background: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', color: '#13151b', fontWeight: 'bold', fontSize: '0.95rem', borderRadius: '8px', border: 'none', cursor: 'pointer', boxShadow: '0 4px 15px rgba(255,154,158,0.3)' }}
+                        >
+                          확인 및 닫기
+                        </button>
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
