@@ -244,6 +244,51 @@ export default function Home() {
     }
   };
 
+  const loadSampleStage2 = () => {
+    setPersonaAudience('Urban EV Drivers & Apartment Renters');
+    setPersonaCountry('Los Angeles, USA');
+    setPersonaGoal('Accessible overnight curbside charging without high idle fees');
+    setPersonaDevices('iPhone 15 Pro, Tesla App, Apple CarPlay');
+    setPersonaTone('Professional & Empirical');
+  };
+
+  const loadSampleStage3 = () => {
+    setSbExperience('Frustration finding working public chargers near apartment complexes');
+    setSbCountry('Los Angeles, USA');
+    setSbPainPoints('Broken EV chargers, cable theft, blocking by gas cars (ICEing)');
+    setSbDevices('Smartphone EV charging apps, NFC contactless payment');
+    setSbCompetitors('ChargePoint, Electrify America, EVgo, Tesla Supercharger');
+  };
+
+  const loadSampleStage4 = () => {
+    setCompMarket('Los Angeles, USA');
+    setSbCountry('Los Angeles, USA');
+    setValLenses('Feasibility, Viability, Desirability');
+    setValMetrics('ROIC > 15%, Adoption rate > 30% among urban LA EV commuters');
+    setValProfiles('LA City Permitting Engineer, Daily Urban EV Commuter, Eco-Tech Venture Capitalist');
+    setSelectedScenarios([
+      {
+        title: "Solar-Assisted Curbside EV Charging Network in LA",
+        description: "Deploying modular Level 2 curbside charging stations powered by smart grid and solar canopy retrofits across dense Los Angeles residential districts without private garages.",
+        impact: "Solves EV charging inequality for apartment dwellers in Koreatown, Silver Lake, and Downtown LA.",
+        feasibility: "Requires coordination with LADWP and LA Bureau of Street Services."
+      },
+      {
+        title: "AI-Surge Fleet Supercharging Hubs near LAX",
+        description: "Dedicated ultra-fast 350kW charging depots strategically located along the 405 freeway and LAX corridor tailored for rideshare (Uber/Lyft) and commercial electric delivery vans.",
+        impact: "Guaranteed high utilization and rapid turnover during peak commuter hours.",
+        feasibility: "High capital expenditure but strong unit economics."
+      }
+    ]);
+    setValidationError(null);
+  };
+
+  const loadSampleStage5 = () => {
+    setWinningScenario("Solar-Assisted Curbside EV Charging Network in LA: Deploying modular Level 2 curbside charging stations powered by smart grid and solar canopy retrofits across dense Los Angeles residential districts without private garages.");
+    setSumAudience('Executive Board & Investors');
+    setSumTone('Inspirational & Visionary');
+  };
+
   const handleValidateScenario = async () => {
     if (selectedScenarios.length === 0) {
         setValidationError("You must select at least one Scenario in Phase 3.");
@@ -919,6 +964,11 @@ export default function Home() {
               <div className="grid-layout">
                 {/* Input Form */}
                 <div className="glass-panel input-section">
+                  <div style={{ marginBottom: '16px' }}>
+                    <button type="button" onClick={loadSampleStage2} className="btn" style={{ background: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)', color: '#fff', fontWeight: 'bold', padding: '8px 14px', fontSize: '0.85rem', border: 'none', borderRadius: '8px', cursor: 'pointer', width: '100%' }}>
+                      🧪 Load Sample LA Data (Quick Test Phase 2)
+                    </button>
+                  </div>
                   <h3>Persona Parameters</h3>
                   <div className="form-group">
                     <label htmlFor="persona-experience">Experience Area</label>
@@ -1212,6 +1262,12 @@ export default function Home() {
                 <div className="glass-panel" style={{ padding: '30px' }}>
                   <h3 style={{ color: 'var(--accent-blue)', marginBottom: '20px' }}>UX Journey Mapper</h3>
                   
+                  <div style={{ marginBottom: '16px' }}>
+                    <button type="button" onClick={loadSampleStage3} className="btn" style={{ background: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)', color: '#fff', fontWeight: 'bold', padding: '8px 14px', fontSize: '0.85rem', border: 'none', borderRadius: '8px', cursor: 'pointer', width: '100%' }}>
+                      🧪 Load Sample LA Data (Quick Test Phase 3)
+                    </button>
+                  </div>
+
                   {!selectedPersona && (
                       <div style={{ padding: '16px', background: 'rgba(255, 68, 68, 0.1)', borderRadius: '8px', border: '1px dashed #ff4444', marginBottom: '20px' }}>
                           <p style={{ color: '#ff4444', fontSize: '0.9rem', margin: 0 }}>⚠️ No Persona selected. You must click a Persona card in Phase 2 first.</p>
@@ -1421,6 +1477,12 @@ export default function Home() {
                       <h2>Phase 4: Validate Scenario</h2>
                       <p className="subtitle">Stress test your scenarios using virtual interviewers.</p>
 
+                      <div style={{ marginBottom: '16px' }}>
+                        <button type="button" onClick={loadSampleStage4} className="btn" style={{ background: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)', color: '#fff', fontWeight: 'bold', padding: '8px 14px', fontSize: '0.85rem', border: 'none', borderRadius: '8px', cursor: 'pointer', width: '100%' }}>
+                          🧪 Load Sample LA Scenarios (Quick Test Phase 4)
+                        </button>
+                      </div>
+
                       {selectedScenarios.length > 0 ? (
                         <div style={{ padding: '12px', background: 'rgba(110, 227, 197, 0.1)', borderRadius: '8px', border: '1px dashed #6ee3c5', marginBottom: '20px' }}>
                             <span style={{ color: '#6ee3c5', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '4px', display: 'block' }}>Inherited from Phase 3</span>
@@ -1428,7 +1490,7 @@ export default function Home() {
                         </div>
                       ) : (
                         <div style={{ padding: '12px', background: 'rgba(255, 68, 68, 0.1)', borderRadius: '8px', border: '1px dashed #ff4444', marginBottom: '20px' }}>
-                            <span style={{ color: '#ff4444', fontSize: '0.9rem' }}>No scenarios selected! Please go back to Phase 3.</span>
+                            <span style={{ color: '#ff4444', fontSize: '0.9rem' }}>No scenarios selected! Click Quick Test above or go back to Phase 3.</span>
                         </div>
                       )}
 
@@ -1628,6 +1690,12 @@ export default function Home() {
                       <h2>Phase 5: Executive Summary</h2>
                       <p className="subtitle">Synthesize the winning scenario into a strategic 1-pager.</p>
 
+                      <div style={{ marginBottom: '16px' }}>
+                        <button type="button" onClick={loadSampleStage5} className="btn" style={{ background: 'linear-gradient(135deg, #f12711 0%, #f5af19 100%)', color: '#fff', fontWeight: 'bold', padding: '8px 14px', fontSize: '0.85rem', border: 'none', borderRadius: '8px', cursor: 'pointer', width: '100%' }}>
+                          🧪 Load Sample LA Data (Quick Test Phase 5)
+                        </button>
+                      </div>
+
                       {winningScenario ? (
                         <div style={{ padding: '12px', background: 'rgba(110, 227, 197, 0.1)', borderRadius: '8px', border: '1px dashed #6ee3c5', marginBottom: '20px' }}>
                             <span style={{ color: '#6ee3c5', fontSize: '0.8rem', textTransform: 'uppercase', marginBottom: '4px', display: 'block' }}>Winning Scenario Inherited</span>
@@ -1635,7 +1703,7 @@ export default function Home() {
                         </div>
                       ) : (
                         <div style={{ padding: '12px', background: 'rgba(255, 68, 68, 0.1)', borderRadius: '8px', border: '1px dashed #ff4444', marginBottom: '20px' }}>
-                            <span style={{ color: '#ff4444', fontSize: '0.9rem' }}>No Winning Scenario selected! Please go back to Phase 4.</span>
+                            <span style={{ color: '#ff4444', fontSize: '0.9rem' }}>No Winning Scenario selected! Click Quick Test above or go back to Phase 4.</span>
                         </div>
                       )}
 
